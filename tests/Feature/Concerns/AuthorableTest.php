@@ -20,7 +20,7 @@ it('has author and editor', function () {
         ->author()->toBeInstanceOf(BelongsTo::class)
         ->author
         ->scoped(fn ($author) => $author
-            ->toBeInstanceOf(User::class)
+            ->toBeInstanceOf(AuthUser::class)
             ->id->toBe($this->user->id)
         )
         ->editor()->toBeInstanceOf(BelongsTo::class)
