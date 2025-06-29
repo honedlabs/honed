@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use Workbench\App\Models\Product;
 use Workbench\App\Models\User;
 
@@ -25,7 +26,7 @@ it('has author and editor', function () {
         ->editor()->toBeInstanceOf(BelongsTo::class)
         ->editor
         ->scoped(fn ($editor) => $editor
-            ->toBeInstanceOf(User::class)
+            ->toBeInstanceOf(AuthUser::class)
             ->id->toBe($this->user->id)
         );
 });
@@ -42,12 +43,12 @@ it('updates editor', function () {
     expect($this->product)
         ->author
         ->scoped(fn ($author) => $author
-            ->toBeInstanceOf(User::class)
+            ->toBeInstanceOf(AuthUser::class)
             ->id->toBe($this->user->id)
         )
         ->editor
         ->scoped(fn ($editor) => $editor
-            ->toBeInstanceOf(User::class)
+            ->toBeInstanceOf(AuthUser::class)
             ->id->toBe($user->id)
         );
 });
