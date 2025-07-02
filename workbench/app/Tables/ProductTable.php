@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Workbench\App\Tables;
 
+use Honed\Honed\Concerns\CanDeferLoading;
 use Honed\Table\Table;
 use Workbench\App\Models\Product;
 
@@ -15,6 +16,8 @@ use Workbench\App\Models\Product;
  */
 class ProductTable extends Table
 {
+    use CanDeferLoading;
+
     /**
      * Define the table.
      *

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Honed\Honed\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -18,10 +19,8 @@ trait Authorable
 {
     /**
      * Boot the HasAuthor trait.
-     *
-     * @return void
      */
-    public static function bootAuthorable()
+    public static function bootAuthorable(): void
     {
         static::creating(function (self $model) {
             $touchedBy = $model->getTouchedByKey();
@@ -38,9 +37,9 @@ trait Authorable
     /**
      * Get the user that created the model.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TModel, $this>
+     * @return BelongsTo<TModel, $this>
      */
-    public function author()
+    public function author(): BelongsTo
     {
         $model = $this->getAuthorModel();
 
@@ -54,9 +53,9 @@ trait Authorable
     /**
      * Get the user that last edited the model.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TModel, $this>
+     * @return BelongsTo<TModel, $this>
      */
-    public function editor()
+    public function editor(): BelongsTo
     {
         $model = $this->getAuthorModel();
 
@@ -69,32 +68,24 @@ trait Authorable
 
     /**
      * Set the author of the model to be the initiating user.
-     *
-     * @param  int|string|null  $id
-     * @return void
      */
-    public function setCreatedBy($id)
+    public function setCreatedBy(int|string|null $id): void
     {
         $this->{$this->getCreatedByColumn()} = $id;
     }
 
     /**
      * Set the editor of the model to be the initiating user.
-     *
-     * @param  int|string|null  $id
-     * @return void
      */
-    public function setUpdatedBy($id)
+    public function setUpdatedBy(int|string|null $id): void
     {
         $this->{$this->getUpdatedByColumn()} = $id;
     }
 
     /**
      * Get the name of the "created by" column.
-     *
-     * @return string
      */
-    public function getCreatedByColumn()
+    public function getCreatedByColumn(): string
     {
         if (defined('self::CREATED_BY')) {
             return self::CREATED_BY;
@@ -105,10 +96,8 @@ trait Authorable
 
     /**
      * Get the name of the "updated by" column.
-     *
-     * @return string
      */
-    public function getUpdatedByColumn()
+    public function getUpdatedByColumn(): string
     {
         if (defined('self::UPDATED_BY')) {
             return self::UPDATED_BY;
@@ -122,7 +111,7 @@ trait Authorable
      *
      * @return class-string<Model>
      */
-    protected function getAuthorModel()
+    protected function getAuthorModel(): string
     {
         /** @var class-string<Model> */
         return Config::get('auth.providers.users.model', User::class);
@@ -130,20 +119,16 @@ trait Authorable
 
     /**
      * Get the model which is initiating the action.
-     *
-     * @return Model|int|string|null
      */
-    protected function getTouchedBy()
+    protected function getTouchedBy(): Model|int|string|null
     {
         return Auth::id();
     }
 
     /**
      * Get the identifying key of the initiating model to update this model.
-     *
-     * @return int|string|null
      */
-    protected function getTouchedByKey()
+    protected function getTouchedByKey(): int|string|null
     {
         $touchedBy = $this->getTouchedBy();
 

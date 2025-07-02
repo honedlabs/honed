@@ -15,7 +15,7 @@ trait IsResource
      *
      * @return array<array-key, array{value: string, label: string|int}>
      */
-    public static function toResource()
+    public static function toResource(): array
     {
         $cases = static::cases();
 
@@ -27,10 +27,8 @@ trait IsResource
 
     /**
      * Create a label for the enum value.
-     *
-     * @return string
      */
-    public function label()
+    public function label(): string
     {
         return Str::of($this->name)
             ->headline()
