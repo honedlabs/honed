@@ -13,7 +13,12 @@ beforeEach(function () {
 it('can defer loading', function () {
     expect($this->table->defer())
         ->toBeInstanceOf(DeferProp::class);
-});
+})->skip(fn () => ProductTable::doesNotSupportDeferrableProps());
+
+it('throws an exception if deferrable props are not supported', function () {
+    $this->table->defer();
+})->skip(fn () => ProductTable::supportsDeferrableProps())
+    ->throws(LogicException::class);
 
 it('can lazy load', function () {
     expect($this->table->lazy())
