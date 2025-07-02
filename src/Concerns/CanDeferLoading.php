@@ -34,6 +34,8 @@ trait CanDeferLoading
 
     /**
      * Defer the loading of the instance.
+     *
+     * @throws \LogicException
      */
     public function defer(string $group = 'default'): DeferProp
     {
