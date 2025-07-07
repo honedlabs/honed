@@ -27,6 +27,7 @@ class ProductTable extends Table
     protected function definition(Table $table): Table
     {
         return $table
-            ->for(Product::class);
+            ->for(Product::class)
+            ->key('id');
     }
 }

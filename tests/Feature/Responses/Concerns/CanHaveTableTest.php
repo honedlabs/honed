@@ -25,3 +25,22 @@ it('has table from instance', function () {
         ->table(ProductTable::make())->toBe($this->response)
         ->getTable()->toBeInstanceOf(ProductTable::class);
 });
+
+it('does not have table from model', function () {
+    expect($this->response)
+        ->table()->toBe($this->response)
+        ->getTable()->toBeNull();
+});
+
+it('has table props', function () {
+    expect($this->response)
+        ->canHaveTableToProps()->toBe([])
+        ->table(ProductTable::make())->toBe($this->response)
+        ->canHaveTableToProps()
+        ->scoped(fn ($table) => $table
+            ->toBeArray()
+            ->toHaveCount(1)
+            ->toHaveKey(IndexProduct::TABLE_PROP)
+            ->{IndexProduct::TABLE_PROP}->toBeArray()
+        );
+});

@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Honed\Honed\Responses\Concerns;
 
 use Honed\Action\Batch;
+use Honed\Honed\Contracts\ViewsModel;
 
-/**
- * @template TBatch of \Honed\Action\Batch = \Honed\Action\Batch
- */
 trait CanHaveBatch
 {
     public const BATCH_PROP = 'batch';
@@ -16,17 +14,17 @@ trait CanHaveBatch
     /**
      * The batch to use for actions.
      *
-     * @var class-string<TBatch>|TBatch|null
+     * @var bool|class-string<Batch>|Batch
      */
-    protected $batch;
+    protected $batch = false;
 
     /**
      * Set the batch to use for actions.
      *
-     * @param  class-string<TBatch>|TBatch|null  $value
+     * @param  bool|class-string<Batch>|Batch  $value
      * @return $this
      */
-    public function batch($value)
+    public function batch(bool|string|Batch $value = true): static
     {
         $this->batch = $value;
 
@@ -35,14 +33,13 @@ trait CanHaveBatch
 
     /**
      * Get the batch to use for actions.
-     *
-     * @return TBatch|null
      */
-    public function getBatch()
+    public function getBatch(): ?Batch
     {
         return match (true) {
             is_string($this->batch) => ($this->batch)::make(),
             $this->batch instanceof Batch => $this->batch,
+            $this->batch === true && $this instanceof ViewsModel => $this->getModel()->batch(), // @phpstan-ignore-line method.notFound
             default => null,
         };
     }
@@ -52,10 +49,12 @@ trait CanHaveBatch
      *
      * @return array<string, mixed>
      */
-    protected function batchToArray()
+    public function canHaveBatchToProps(): array
     {
         if ($batch = $this->getBatch()) {
-            return [self::BATCH_PROP => $batch];
+            return [
+                self::BATCH_PROP => $batch->toArray(),
+            ];
         }
 
         return [];

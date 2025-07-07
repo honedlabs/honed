@@ -13,17 +13,30 @@ beforeEach(function () {
 
 it('has props', function () {
     expect($this->response)
-        ->getProps()
+        ->toProps()
         ->scoped(fn ($props) => $props
             ->toBeArray()
-            ->toBeEmpty()
+            ->toHaveCount(2)
+            ->toHaveKeys([
+                IndexProduct::TITLE_PROP,
+                IndexProduct::HEAD_PROP,
+            ])
+            ->{IndexProduct::TITLE_PROP}->toBeNull()
+            ->{IndexProduct::HEAD_PROP}->toBeNull()
         )
         ->table(ProductTable::class)
-        ->getProps()
+        ->toProps()
         ->scoped(fn ($props) => $props
             ->toBeArray()
-            ->toHaveCount(1)
-            ->toHaveKey(IndexProduct::TABLE_PROP)
+            ->toHaveCount(3)
+            ->toHaveKeys([
+                IndexProduct::TITLE_PROP,
+                IndexProduct::HEAD_PROP,
+                IndexProduct::TABLE_PROP,
+            ])
+            ->{IndexProduct::TITLE_PROP}->toBeNull()
+            ->{IndexProduct::HEAD_PROP}->toBeNull()
+            ->{IndexProduct::TABLE_PROP}->toBeArray()
         );
 });
 

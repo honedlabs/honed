@@ -4,13 +4,26 @@ declare(strict_types=1);
 
 namespace Workbench\App\Models;
 
+use Honed\Action\Attributes\UseBatch;
 use Honed\Honed\Concerns\Authorable;
+use Honed\Honed\Concerns\IsHoned;
+use Honed\Infolist\Attributes\UseInfolist;
+use Honed\Stats\Attributes\UseOverview;
+use Honed\Table\Attributes\UseTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Workbench\App\Batches\ProductBatch;
 use Workbench\App\Enums\Status;
+use Workbench\App\Infolists\ProductInfolist;
+use Workbench\App\Overviews\ProductOverview;
+use Workbench\App\Tables\ProductTable;
 use Workbench\Database\Factories\ProductFactory;
 
+#[UseTable(ProductTable::class)]
+#[UseInfolist(ProductInfolist::class)]
+#[UseBatch(ProductBatch::class)]
+#[UseOverview(ProductOverview::class)]
 class Product extends Model
 {
     use Authorable;
@@ -20,6 +33,7 @@ class Product extends Model
      */
     use HasFactory;
 
+    use IsHoned;
     use SoftDeletes;
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Honed\Honed\Responses\Concerns;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
@@ -38,7 +39,7 @@ trait HasModel
      * @param  TModel  $value
      * @return $this
      */
-    public function model($value)
+    public function model(Model $value): static
     {
         $this->model = $value;
 
@@ -50,7 +51,7 @@ trait HasModel
      *
      * @return TModel
      */
-    public function getModel()
+    public function getModel(): Model
     {
         return $this->model;
     }
@@ -61,7 +62,7 @@ trait HasModel
      * @param  class-string<\Spatie\LaravelData\Data>|null  $value
      * @return $this
      */
-    public function data($value)
+    public function data(?string $value): static
     {
         $this->data = $value;
 
@@ -73,7 +74,7 @@ trait HasModel
      *
      * @return class-string<\Spatie\LaravelData\Data>|null
      */
-    public function getData()
+    public function getData(): ?string
     {
         return $this->data;
     }
@@ -81,10 +82,9 @@ trait HasModel
     /**
      * Set the name of the model prop for the view.
      *
-     * @param  string  $value
      * @return $this
      */
-    public function propName($value)
+    public function propName(string $value): static
     {
         $this->propName = $value;
 
@@ -93,30 +93,36 @@ trait HasModel
 
     /**
      * Get the name of the model prop for the view.
-     *
-     * @return string
      */
-    public function getPropName()
+    public function getPropName(): string
     {
         return $this->propName ??= $this->guessPropName();
     }
 
     /**
      * Get the prepared model for the view.
-     *
-     * @return mixed
      */
-    public function getPropModel()
+    public function getPropModel(): mixed
     {
         return $this->prepare($this->getModel());
     }
 
     /**
-     * Guess the name of the model prop for the view.
+     * Convert the model to an array of props.
      *
-     * @return string
+     * @return array<string, mixed>
      */
-    protected function guessPropName()
+    public function hasModelToProps(): array
+    {
+        return [
+            $this->getPropName() => $this->getPropModel(),
+        ];
+    }
+
+    /**
+     * Guess the name of the model prop for the view.
+     */
+    protected function guessPropName(): string
     {
         return Str::of($this->model::class)
             ->classBasename()
@@ -129,24 +135,13 @@ trait HasModel
      * Prepare the model prop for serialization.
      *
      * @param  TModel  $model
-     * @return mixed
      */
-    protected function prepare($model)
+    protected function prepare(Model $model): mixed
     {
         if ($data = $this->getData()) {
             return $data::from($model);
         }
 
         return $model;
-    }
-
-    /**
-     * Convert the model to an array of props.
-     *
-     * @return array<string, mixed>
-     */
-    protected function modelToArray()
-    {
-        return [$this->getPropName() => $this->getPropModel()];
     }
 }

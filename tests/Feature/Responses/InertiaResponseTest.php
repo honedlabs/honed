@@ -25,13 +25,6 @@ it('has head', function () {
         ->getHead()->toBe('Head');
 });
 
-it('has props', function () {
-    expect($this->response)
-        ->getProps()->toBeEmpty()
-        ->props(['key' => 'value'])->toBe($this->response)
-        ->getProps()->toBe(['key' => 'value']);
-});
-
 it('has page', function () {
     expect($this->response)
         ->getPage()->toBeNull()

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Workbench\App\Http\Responses;
+namespace Workbench\App\Overviews;
 
-use Honed\Honed\Responses\CreateResponse;
+use Honed\Stats\Overview;
 
-class CreateProduct extends CreateResponse
+class ProductOverview extends Overview
 {
     /**
-     * Define the response.
+     * Define the profile.
      *
      * @return $this
      */

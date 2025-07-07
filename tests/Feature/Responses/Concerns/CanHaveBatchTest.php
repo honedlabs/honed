@@ -28,3 +28,22 @@ it('has batch from instance', function () {
         ->batch(ProductBatch::make())->toBe($this->response)
         ->getBatch()->toBeInstanceOf(ProductBatch::class);
 });
+
+it('has batch from model', function () {
+    expect($this->response)
+        ->batch()->toBe($this->response)
+        ->getBatch()->toBeInstanceOf(ProductBatch::class);
+});
+
+it('has batch props', function () {
+    expect($this->response)
+        ->canHaveBatchToProps()->toBe([])
+        ->batch(ProductBatch::make())->toBe($this->response)
+        ->canHaveBatchToProps()
+        ->scoped(fn ($batch) => $batch
+            ->toBeArray()
+            ->toHaveCount(1)
+            ->toHaveKey(ShowProduct::BATCH_PROP)
+            ->{ShowProduct::BATCH_PROP}->toBeArray()
+        );
+});

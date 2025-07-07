@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Honed\Honed\Responses;
 
 use BadMethodCallException;
+use Honed\Honed\Responses\Concerns\HasProps;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Traits\Macroable;
@@ -14,6 +15,9 @@ use RuntimeException;
 class InertiaResponse implements Responsable
 {
     use Conditionable;
+    use HasProps {
+        getProps as baseProps;
+    }
     use Macroable {
         __call as macroCall;
     }
@@ -35,13 +39,6 @@ class InertiaResponse implements Responsable
      * @var string|null
      */
     protected $head;
-
-    /**
-     * The props for the view.
-     *
-     * @var array<string, mixed>
-     */
-    protected $props = [];
 
     /**
      * The page to be rendered.
@@ -80,10 +77,8 @@ class InertiaResponse implements Responsable
 
     /**
      * Provide the instance with any necessary setup.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         //
     }
@@ -91,10 +86,9 @@ class InertiaResponse implements Responsable
     /**
      * Set the title for the page.
      *
-     * @param  string  $title
      * @return $this
      */
-    public function title($title)
+    public function title(string $title): static
     {
         $this->title = $title;
 
@@ -103,10 +97,8 @@ class InertiaResponse implements Responsable
 
     /**
      * Get the title of the page.
-     *
-     * @return string|null
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -114,10 +106,9 @@ class InertiaResponse implements Responsable
     /**
      * Set the head of the page.
      *
-     * @param  string  $head
      * @return $this
      */
-    public function head($head)
+    public function head(string $head): static
     {
         $this->head = $head;
 
@@ -126,44 +117,18 @@ class InertiaResponse implements Responsable
 
     /**
      * Get the head of the page.
-     *
-     * @return string|null
      */
-    public function getHead()
+    public function getHead(): ?string
     {
         return $this->head ??= $this->getTitle();
     }
 
     /**
-     * Set the props for the view.
-     *
-     * @param  array<string, mixed>  $props
-     * @return $this
-     */
-    public function props($props)
-    {
-        $this->props = $props;
-
-        return $this;
-    }
-
-    /**
-     * Get the props for the view.
-     *
-     * @return array<string, mixed>
-     */
-    public function getProps()
-    {
-        return $this->props;
-    }
-
-    /**
      * The page to be rendered.
      *
-     * @param  string  $page
      * @return $this
      */
-    public function page($page)
+    public function page(string $page): static
     {
         $this->page = $page;
 
@@ -172,10 +137,8 @@ class InertiaResponse implements Responsable
 
     /**
      * Get the page to be rendered.
-     *
-     * @return string|null
      */
-    public function getPage()
+    public function getPage(): ?string
     {
         return $this->page;
     }
@@ -183,10 +146,9 @@ class InertiaResponse implements Responsable
     /**
      * The modal to be rendered.
      *
-     * @param  string  $modal
      * @return $this
      */
-    public function modal($modal)
+    public function modal(string $modal): static
     {
         $this->modal = $modal;
 
@@ -195,10 +157,8 @@ class InertiaResponse implements Responsable
 
     /**
      * Get the modal to be rendered.
-     *
-     * @return string|null
      */
-    public function getModal()
+    public function getModal(): ?string
     {
         return $this->modal;
     }
@@ -206,10 +166,9 @@ class InertiaResponse implements Responsable
     /**
      * Set the base url to be used for modals.
      *
-     * @param  string  $base
      * @return $this
      */
-    public function base($base)
+    public function base(string $base): static
     {
         $this->base = $base;
 
@@ -218,10 +177,8 @@ class InertiaResponse implements Responsable
 
     /**
      * Get the base url to be used for modals.
-     *
-     * @return string|null
      */
-    public function getBaseUrl()
+    public function getBaseUrl(): ?string
     {
         return $this->base;
     }
@@ -236,28 +193,42 @@ class InertiaResponse implements Responsable
     {
         $this->setUp();
 
-        $this->definition($this);
+        $this->definition();
 
         return $this->render()->toResponse($request);
     }
 
     /**
+     * Generate the props for the view.
+     *
+     * @return array<string, mixed>
+     */
+    public function getProps(): array
+    {
+        return [
+            self::TITLE_PROP => $this->getTitle(),
+            self::HEAD_PROP => $this->getHead(),
+            ...$this->baseProps(),
+        ];
+    }
+
+    /**
      * Define the response.
      *
-     * @param  $this  $response
      * @return $this
      */
-    protected function definition(self $response): self
+    protected function definition(): static
     {
-        return $response;
+        return $this;
     }
 
     /**
      * Render the page or modal.
      *
-     * @return Responsable
+     *
+     * @throws RuntimeException
      */
-    protected function render()
+    protected function render(): Responsable
     {
         return match (true) {
             (bool) ($page = $this->getPage()) => $this->renderPage($page),
@@ -271,21 +242,19 @@ class InertiaResponse implements Responsable
     /**
      * Render the page.
      *
-     * @param  string  $page
      * @return \Inertia\Response
      */
-    protected function renderPage($page)
+    protected function renderPage(string $page): Responsable
     {
-        return Inertia::render($page, $this->generateProps());
+        return Inertia::render($page, $this->toProps());
     }
 
     /**
      * Render the modal.
      *
-     * @param  string  $modal
      * @return \Inertia\Response
      */
-    protected function renderModal($modal)
+    protected function renderModal(string $modal): Responsable
     {
         $base = $this->getBaseUrl();
 
@@ -295,20 +264,6 @@ class InertiaResponse implements Responsable
             );
         }
 
-        return Inertia::render($modal, $this->generateProps());
-    }
-
-    /**
-     * Generate the props for the view.
-     *
-     * @return array<string, mixed>
-     */
-    protected function generateProps()
-    {
-        return [
-            self::TITLE_PROP => $this->getTitle(),
-            self::HEAD_PROP => $this->getHead(),
-            ...$this->getProps(),
-        ];
+        return Inertia::render($modal, $this->toProps());
     }
 }

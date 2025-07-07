@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Workbench\App\Http\Responses;
 
 use Honed\Honed\Responses\IndexResponse;
-use Honed\Honed\Responses\InertiaResponse;
 use Workbench\App\Tables\ProductTable;
 
 /**
@@ -13,8 +12,13 @@ use Workbench\App\Tables\ProductTable;
  */
 class IndexProduct extends IndexResponse
 {
-    protected function definition(InertiaResponse $response): InertiaResponse
+    /**
+     * Define the response.
+     *
+     * @return $this
+     */
+    protected function definition(): static
     {
-        return $response;
+        return $this;
     }
 }

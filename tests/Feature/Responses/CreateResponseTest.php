@@ -9,34 +9,34 @@ use function Pest\Laravel\get;
 beforeEach(function () {
     $this->store = route('products.store');
 
-    $this->response = new CreateProduct($this->store);
-});
-
-it('has store url', function () {
-    expect($this->response)
-        ->getStoreUrl()->toBe($this->store)
-        ->storeUrl('/products')->toBe($this->response)
-        ->getStoreUrl()->toBe('/products');
+    $this->response = (new CreateProduct($this->store));
 });
 
 it('has props', function () {
     expect($this->response)
-        ->getProps()
+        ->toProps()
         ->scoped(fn ($props) => $props
             ->toBeArray()
-            ->toHaveCount(1)
-            ->toHaveKey(CreateProduct::STORE_PROP)
+            ->toHaveCount(3)
+            ->toHaveKeys([
+                CreateProduct::TITLE_PROP,
+                CreateProduct::HEAD_PROP,
+                CreateProduct::STORE_PROP,
+            ])
+            ->{CreateProduct::TITLE_PROP}->toBeNull()
+            ->{CreateProduct::HEAD_PROP}->toBeNull()
+            ->{CreateProduct::STORE_PROP}->toBe($this->store)
         );
 });
 
-it('is ineertia response', function () {
+it('is inertia response', function () {
     $is = 'Create';
 
     get(route('products.create'))
         ->assertInertia(fn ($page) => $page
             ->component($is)
-            ->where('title', $is)
-            ->where('head', $is)
-            ->where('store', $this->store)
+            ->where(CreateProduct::TITLE_PROP, $is)
+            ->where(CreateProduct::HEAD_PROP, $is)
+            ->where(CreateProduct::STORE_PROP, $this->store)
         );
 });

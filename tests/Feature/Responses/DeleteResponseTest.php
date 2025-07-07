@@ -15,23 +15,22 @@ beforeEach(function () {
     $this->response = new DeleteProduct($this->product, $this->destroy);
 });
 
-it('has delete url', function () {
-    expect($this->response)
-        ->getDestroyUrl()->toBe($this->destroy)
-        ->destroyUrl('/products')->toBe($this->response)
-        ->getDestroyUrl()->toBe('/products');
-});
-
 it('has props', function () {
     expect($this->response)
-        ->getProps()
+        ->toProps()
         ->scoped(fn ($props) => $props
             ->toBeArray()
-            ->toHaveCount(2)
+            ->toHaveCount(4)
             ->toHaveKeys([
+                DeleteProduct::TITLE_PROP,
+                DeleteProduct::HEAD_PROP,
                 DeleteProduct::DESTROY_PROP,
                 'product',
             ])
+            ->{DeleteProduct::TITLE_PROP}->toBeNull()
+            ->{DeleteProduct::HEAD_PROP}->toBeNull()
+            ->{DeleteProduct::DESTROY_PROP}->toBe($this->destroy)
+            ->{'product'}->toBe($this->product)
         );
 });
 
@@ -41,9 +40,9 @@ it('is inertia response', function () {
     get(route('products.delete', $this->product))
         ->assertInertia(fn ($page) => $page
             ->component($is)
-            ->where('title', $is)
-            ->where('head', $is)
-            ->where('destroy', $this->destroy)
+            ->where(DeleteProduct::TITLE_PROP, $is)
+            ->where(DeleteProduct::HEAD_PROP, $is)
+            ->where(DeleteProduct::DESTROY_PROP, $this->destroy)
             ->has('product')
         );
 });

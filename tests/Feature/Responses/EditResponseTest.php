@@ -15,23 +15,22 @@ beforeEach(function () {
     $this->response = new EditProduct($this->product, $this->update);
 });
 
-it('has update url', function () {
-    expect($this->response)
-        ->getUpdateUrl()->toBe($this->update)
-        ->updateUrl('/products')->toBe($this->response)
-        ->getUpdateUrl()->toBe('/products');
-});
-
 it('has props', function () {
     expect($this->response)
-        ->getProps()
+        ->toProps()
         ->scoped(fn ($props) => $props
             ->toBeArray()
-            ->toHaveCount(2)
+            ->toHaveCount(4)
             ->toHaveKeys([
+                EditProduct::TITLE_PROP,
+                EditProduct::HEAD_PROP,
                 EditProduct::UPDATE_PROP,
                 'product',
             ])
+            ->{EditProduct::TITLE_PROP}->toBeNull()
+            ->{EditProduct::HEAD_PROP}->toBeNull()
+            ->{EditProduct::UPDATE_PROP}->toBe($this->update)
+            ->{'product'}->toBe($this->product)
         );
 });
 

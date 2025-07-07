@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Workbench\App\Http\Responses;
 
-use Honed\Honed\Responses\InertiaResponse;
 use Honed\Honed\Responses\ShowResponse;
 
 /**
@@ -12,8 +11,13 @@ use Honed\Honed\Responses\ShowResponse;
  */
 class ShowProduct extends ShowResponse
 {
-    protected function definition(InertiaResponse $response): InertiaResponse
+    /**
+     * Define the response.
+     *
+     * @return $this
+     */
+    protected function definition(): static
     {
-        return $response;
+        return $this;
     }
 }
