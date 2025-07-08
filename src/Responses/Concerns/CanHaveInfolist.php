@@ -41,8 +41,8 @@ trait CanHaveInfolist
         }
 
         return match (true) {
-            is_string($this->infolist) => ($this->infolist)::make()->for($this->getModel()),
-            $this->infolist instanceof Infolist => $this->infolist->for($this->getModel()),
+            is_string($this->infolist) => ($this->infolist)::make()->record($this->getModel()),
+            $this->infolist instanceof Infolist => $this->infolist->record($this->getModel()),
             $this->infolist === true => $this->getModel()->infolist(), // @phpstan-ignore-line method.notFound
             default => null,
         };

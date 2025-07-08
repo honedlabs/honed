@@ -36,12 +36,18 @@ trait CanHaveBatch
      */
     public function getBatch(): ?Batch
     {
-        return match (true) {
+        $batch = match (true) {
             is_string($this->batch) => ($this->batch)::make(),
             $this->batch instanceof Batch => $this->batch,
             $this->batch === true && $this instanceof ViewsModel => $this->getModel()->batch(), // @phpstan-ignore-line method.notFound
             default => null,
         };
+
+        if ($this instanceof ViewsModel && $batch) {
+            $batch->record($this->getModel());
+        }
+
+        return $batch;
     }
 
     /**

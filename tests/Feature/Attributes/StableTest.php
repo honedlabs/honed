@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+use Honed\Honed\Attributes\Stable;
+use Workbench\App\Classes\Attributed;
+
+it('creates attribute', function () {
+    $attribute = new Stable();
+    expect($attribute)
+        ->toBeInstanceOf(Stable::class);
+});
+
+it('applies attribute', function () {
+    expect(Attributed::class)
+        ->toHaveAttribute(Stable::class);
+});
