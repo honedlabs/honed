@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Honed\Honed\Responses\Concerns;
 
 use Honed\Action\Batch;
-use Honed\Honed\Contracts\ViewsModel;
+use Honed\Honed\Contracts\Modelable;
 
 trait CanHaveBatch
 {
@@ -39,11 +39,11 @@ trait CanHaveBatch
         $batch = match (true) {
             is_string($this->batch) => ($this->batch)::make(),
             $this->batch instanceof Batch => $this->batch,
-            $this->batch === true && $this instanceof ViewsModel => $this->getModel()->batch(), // @phpstan-ignore-line method.notFound
+            $this->batch === true && $this instanceof Modelable => $this->getModel()->batch(), // @phpstan-ignore-line method.notFound
             default => null,
         };
 
-        if ($this instanceof ViewsModel && $batch) {
+        if ($this instanceof Modelable && $batch) {
             $batch->record($this->getModel());
         }
 

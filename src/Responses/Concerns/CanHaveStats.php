@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Honed\Honed\Responses\Concerns;
 
-use Honed\Honed\Contracts\ViewsModel;
+use Honed\Honed\Contracts\Modelable;
 use Honed\Stats\Overview;
 
 trait CanHaveStats
@@ -37,7 +37,7 @@ trait CanHaveStats
         return match (true) {
             is_string($this->stats) => ($this->stats)::make(),
             $this->stats instanceof Overview => $this->stats,
-            $this->stats === true && $this instanceof ViewsModel => $this->getModel()->stats(), // @phpstan-ignore-line method.notFound
+            $this->stats === true && $this instanceof Modelable => $this->getModel()->stats(), // @phpstan-ignore-line method.notFound
             default => null,
         };
     }

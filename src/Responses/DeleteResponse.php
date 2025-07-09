@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Honed\Honed\Responses;
 
-use Honed\Honed\Contracts\ViewsModel;
+use Honed\Honed\Contracts\Modelable;
 use Honed\Honed\Responses\Concerns\HasDestroy;
 use Honed\Honed\Responses\Concerns\HasModel;
 use Illuminate\Database\Eloquent\Model;
@@ -12,9 +12,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @template TModel of \Illuminate\Database\Eloquent\Model
  *
- * @implements ViewsModel<TModel>
+ * @implements Modelable<TModel>
  */
-class DeleteResponse extends InertiaResponse implements ViewsModel
+class DeleteResponse extends InertiaResponse implements Modelable
 {
     use HasDestroy;
 

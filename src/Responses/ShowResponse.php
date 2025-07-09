@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Honed\Honed\Responses;
 
-use Honed\Honed\Contracts\ViewsModel;
+use Honed\Honed\Contracts\Modelable;
 use Honed\Honed\Responses\Concerns\CanHaveBatch;
 use Honed\Honed\Responses\Concerns\CanHaveInfolist;
 use Honed\Honed\Responses\Concerns\CanHaveStats;
@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @template TModel of \Illuminate\Database\Eloquent\Model
  *
- * @implements ViewsModel<TModel>
+ * @implements Modelable<TModel>
  */
-abstract class ShowResponse extends InertiaResponse implements ViewsModel
+abstract class ShowResponse extends InertiaResponse implements Modelable
 {
     use CanHaveBatch;
     use CanHaveInfolist;

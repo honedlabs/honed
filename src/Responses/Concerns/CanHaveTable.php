@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Honed\Honed\Responses\Concerns;
 
-use Honed\Honed\Contracts\ViewsModel;
+use Honed\Honed\Contracts\Modelable;
 use Honed\Table\Table;
 
 trait CanHaveTable
@@ -39,7 +39,7 @@ trait CanHaveTable
         return match (true) {
             is_string($this->table) => ($this->table)::make(),
             $this->table instanceof Table => $this->table,
-            $this->table === true && $this instanceof ViewsModel => $this->getModel()->table(), // @phpstan-ignore-line method.notFound
+            $this->table === true && $this instanceof Modelable => $this->getModel()->table(), // @phpstan-ignore-line method.notFound
             default => null,
         };
     }

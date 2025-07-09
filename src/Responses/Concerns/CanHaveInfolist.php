@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Honed\Honed\Responses\Concerns;
 
-use Honed\Honed\Contracts\ViewsModel;
+use Honed\Honed\Contracts\Modelable;
 use Honed\Infolist\Infolist;
 
 trait CanHaveInfolist
@@ -36,7 +36,7 @@ trait CanHaveInfolist
      */
     public function getInfolist(): ?Infolist
     {
-        if (! $this instanceof ViewsModel) {
+        if (! $this instanceof Modelable) {
             return null;
         }
 
