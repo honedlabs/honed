@@ -40,8 +40,6 @@ trait HasProps
     /**
      * Set a prop for the view.
      *
-     * @param  string  $prop
-     * @param  mixed  $value
      * @return $this
      */
     public function prop(string $prop, mixed $value): static

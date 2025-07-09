@@ -15,10 +15,24 @@ abstract class FlushCache implements Action
 {
     /**
      * The cache to flush from.
-     * 
+     *
      * @return class-string<\Honed\Command\CacheManager>
      */
     abstract public function cache(): string;
+
+    /**
+     * Flush the cache using the given input.
+     *
+     * @param  TInput  $input
+     */
+    public function handle($input): void
+    {
+        $key = $this->prepare($input);
+
+        $this->cache()::forget($key);
+
+        $this->after($input, $key);
+    }
 
     /**
      * Create the cache key from the input.
@@ -36,27 +50,10 @@ abstract class FlushCache implements Action
     }
 
     /**
-     * Flush the cache using the given input.
-     * 
-     * @param  TInput  $input
-     */
-    public function handle($input): void
-    {
-        $key = $this->prepare($input);
-
-        $this->cache()::forget($key);
-
-        $this->after($input, $key);
-    }
-
-    /**
      * Perform actions after the cache has been flushed.
      *
      * @param  TInput  $input
      * @param  TKey  $key
      */
-    protected function after($input, $key): void
-    {
-
-    }
+    protected function after($input, $key): void {}
 }
