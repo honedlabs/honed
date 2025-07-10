@@ -13,6 +13,13 @@ use Illuminate\Support\Str;
 trait HasModel
 {
     /**
+     * Whether to not pass the model to the view.
+     *
+     * @var bool
+     */
+    protected $serializeModel = true;
+
+    /**
      * The model to be passed to the view.
      *
      * @var TModel
@@ -32,6 +39,48 @@ trait HasModel
      * @var string|null
      */
     protected $propName;
+
+    /**
+     * Set whether to pass the model to the view.
+     *
+     * @return $this
+     */
+    public function serializeModel(bool $value = true): static
+    {
+        $this->serializeModel = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set whether to not pass the model to the view.
+     *
+     * @return $this
+     */
+    public function dontSerializeModel(bool $value = true): static
+    {
+        return $this->serializeModel(! $value);
+    }
+
+    /**
+     * Get whether to pass the model to the view.
+     *
+     * @return bool
+     */
+    public function isSerializingModel(): bool
+    {
+        return $this->serializeModel;
+    }
+
+    /**
+     * Get whether to not pass the model to the view.
+     *
+     * @return bool
+     */
+    public function isNotSerializingModel(): bool
+    {
+        return ! $this->serializeModel;
+    }
 
     /**
      * Set the model for the view.
@@ -114,9 +163,13 @@ trait HasModel
      */
     public function hasModelToProps(): array
     {
-        return [
-            $this->getPropName() => $this->getPropModel(),
-        ];
+        if ($this->isSerializingModel()) {
+            return [
+                $this->getPropName() => $this->getPropModel(),
+            ];
+        }
+
+        return [];
     }
 
     /**
