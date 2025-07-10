@@ -64,8 +64,6 @@ trait HasModel
 
     /**
      * Get whether to pass the model to the view.
-     *
-     * @return bool
      */
     public function isSerializingModel(): bool
     {
@@ -74,8 +72,6 @@ trait HasModel
 
     /**
      * Get whether to not pass the model to the view.
-     *
-     * @return bool
      */
     public function isNotSerializingModel(): bool
     {
