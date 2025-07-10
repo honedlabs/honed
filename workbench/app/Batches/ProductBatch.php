@@ -18,12 +18,11 @@ class ProductBatch extends Batch
     /**
      * Define the operations for the batch.
      *
-     * @param  $this  $batch
      * @return $this
      */
-    protected function definition(Batch $batch): Batch
+    protected function definition(): static
     {
-        return $batch
+        return $this
             ->operations([
                 InlineOperation::make('edit'),
             ]);

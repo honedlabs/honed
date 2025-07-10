@@ -48,17 +48,6 @@ trait HasProps
     }
 
     /**
-     * Set the props for the view.
-     *
-     * @param  string|array<string, mixed>  $props
-     * @return $this
-     */
-    public function with(string|array $props, mixed $value = null): static
-    {
-        return $this->props($props, $value);
-    }
-
-    /**
      * Get the props for the view.
      *
      * @return array<string, mixed>

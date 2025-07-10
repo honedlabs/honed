@@ -21,12 +21,11 @@ class ProductTable extends Table
     /**
      * Define the table.
      *
-     * @param  $this  $table
      * @return $this
      */
-    protected function definition(Table $table): Table
+    protected function definition(): static
     {
-        return $table
+        return $this
             ->for(Product::class)
             ->key('id');
     }

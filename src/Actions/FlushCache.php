@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @template TInput
- * @template TKey = mixed
  */
 abstract class FlushCache implements Action
 {
@@ -38,7 +37,7 @@ abstract class FlushCache implements Action
      * Create the cache key from the input.
      *
      * @param  TInput  $input
-     * @return TKey
+     * @return mixed
      */
     protected function prepare($input)
     {
@@ -53,7 +52,7 @@ abstract class FlushCache implements Action
      * Perform actions after the cache has been flushed.
      *
      * @param  TInput  $input
-     * @param  TKey  $key
+     * @param  mixed  $key
      */
     protected function after($input, $key): void {}
 }

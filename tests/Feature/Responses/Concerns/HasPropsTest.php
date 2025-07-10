@@ -33,19 +33,12 @@ it('adds props', function () {
             IndexResponse::TITLE_PROP => null,
             IndexResponse::HEAD_PROP => null,
             'key' => 'value',
-        ]);
-});
-
-it('has alias with', function () {
-    expect($this->response)
-        ->getProps()->toBe([
-            IndexResponse::TITLE_PROP => null,
-            IndexResponse::HEAD_PROP => null,
         ])
-        ->with('key', 'value')->toBe($this->response)
+        ->prop('key2', 'value2')->toBe($this->response)
         ->getProps()->toEqualCanonicalizing([
             IndexResponse::TITLE_PROP => null,
             IndexResponse::HEAD_PROP => null,
             'key' => 'value',
+            'key2' => 'value2',
         ]);
 });

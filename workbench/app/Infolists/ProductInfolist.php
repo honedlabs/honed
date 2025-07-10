@@ -9,11 +9,11 @@ use Honed\Infolist\Infolist;
 class ProductInfolist extends Infolist
 {
     /**
-     * Define the profile.
+     * Define the infolist.
      *
      * @return $this
      */
-    protected function definition(Infolist $infolist): Infolist
+    protected function definition(): static
     {
         return $this;
     }
