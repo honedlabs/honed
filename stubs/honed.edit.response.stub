@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Honed\Honed\Responses\EditResponse;
+
+class {{ class }} extends EditResponse
+{
+    /**
+     * Define the response
+     * 
+     * @return $this
+     */
+    protected function definition(): static
+    {
+        return $this;
+    }
+}

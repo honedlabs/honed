@@ -17,6 +17,27 @@ it('has model by default', function () {
         ->getModel()->toBe($this->product);
 });
 
+it('is with model by default', function () {
+    expect($this->response)
+        ->isWithModel()->toBeTrue()
+        ->isNotWithModel()->toBeFalse()
+        ->withoutModel()->toBe($this->response)
+        ->isNotWithModel()->toBeTrue()
+        ->hasModelToProps()
+        ->scoped(fn ($props) => $props
+            ->toBeArray()
+            ->toBeEmpty()
+        )
+        ->withModel()->toBe($this->response)
+        ->isWithModel()->toBeTrue()
+        ->hasModelToProps()
+        ->scoped(fn ($props) => $props
+            ->toBeArray()
+            ->toHaveCount(1)
+            ->toHaveKey('product')
+        );
+});
+
 it('sets data', function () {
     expect($this->response)
         ->data(ProductData::class)->toBe($this->response)

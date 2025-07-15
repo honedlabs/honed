@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Honed\Honed\Responses\CreateResponse;
+
+class {{ class }} extends CreateResponse
+{
+    /**
+     * Define the response
+     * 
+     * @return $this
+     */
+    protected function definition(): static
+    {
+        return $this;
+    }
+}

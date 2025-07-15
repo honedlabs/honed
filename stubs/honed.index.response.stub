@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Honed\Honed\Responses\IndexResponse;
+
+class {{ class }} extends IndexResponse
+{
+    /**
+     * Define the response
+     * 
+     * @return $this
+     */
+    protected function definition(): static
+    {
+        return $this;
+    }
+}

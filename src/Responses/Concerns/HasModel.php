@@ -17,7 +17,7 @@ trait HasModel
      *
      * @var bool
      */
-    protected $serializeModel = true;
+    protected $withModel = true;
 
     /**
      * The model to be passed to the view.
@@ -45,9 +45,9 @@ trait HasModel
      *
      * @return $this
      */
-    public function serializeModel(bool $value = true): static
+    public function withModel(bool $value = true): static
     {
-        $this->serializeModel = $value;
+        $this->withModel = $value;
 
         return $this;
     }
@@ -57,25 +57,25 @@ trait HasModel
      *
      * @return $this
      */
-    public function dontSerializeModel(bool $value = true): static
+    public function withoutModel(bool $value = true): static
     {
-        return $this->serializeModel(! $value);
+        return $this->withModel(! $value);
     }
 
     /**
      * Get whether to pass the model to the view.
      */
-    public function isSerializingModel(): bool
+    public function isWithModel(): bool
     {
-        return $this->serializeModel;
+        return $this->withModel;
     }
 
     /**
      * Get whether to not pass the model to the view.
      */
-    public function isNotSerializingModel(): bool
+    public function isNotWithModel(): bool
     {
-        return ! $this->serializeModel;
+        return ! $this->isWithModel();
     }
 
     /**
@@ -159,7 +159,7 @@ trait HasModel
      */
     public function hasModelToProps(): array
     {
-        if ($this->isSerializingModel()) {
+        if ($this->isWithModel()) {
             return [
                 $this->getPropName() => $this->getPropModel(),
             ];

@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Honed\Honed\Responses\ShowResponse;
+
+class {{ class }} extends ShowResponse
+{
+    /**
+     * Define the response
+     * 
+     * @return $this
+     */
+    protected function definition(): static
+    {
+        return $this;
+    }
+}
