@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Honed\Honed\Data;
 
 use Spatie\LaravelData\Attributes\Validation\ListType;
