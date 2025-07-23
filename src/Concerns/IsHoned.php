@@ -28,4 +28,6 @@ trait IsHoned
 
     /** @use HasTable<TTable> */
     use HasTable;
+
+    use Transferable;
 }

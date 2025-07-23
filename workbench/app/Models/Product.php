@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Workbench\App\Models;
 
 use Honed\Action\Attributes\UseBatch;
+use Honed\Honed\Attributes\UseData;
 use Honed\Honed\Concerns\Authorable;
 use Honed\Honed\Concerns\IsHoned;
 use Honed\Infolist\Attributes\UseInfolist;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Workbench\App\Batches\ProductBatch;
+use Workbench\App\Data\ProductData;
 use Workbench\App\Enums\Status;
 use Workbench\App\Infolists\ProductInfolist;
 use Workbench\App\Overviews\ProductOverview;
@@ -24,6 +26,7 @@ use Workbench\Database\Factories\ProductFactory;
 #[UseInfolist(ProductInfolist::class)]
 #[UseBatch(ProductBatch::class)]
 #[UseOverview(ProductOverview::class)]
+#[UseData(ProductData::class)]
 class Product extends Model
 {
     use Authorable;
