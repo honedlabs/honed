@@ -19,6 +19,7 @@ class User extends Authenticatable
     use HasFactory;
 
     use Notifiable;
+
     use Transferable;
 
     protected $dataClass = IdData::class;
@@ -63,7 +64,7 @@ class User extends Authenticatable
 
     /**
      * Remove the data class from the model.
-     *
+     * 
      * @internal
      */
     public function removeDataClass(): void
