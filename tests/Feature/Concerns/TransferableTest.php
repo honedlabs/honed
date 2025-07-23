@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Workbench\App\Data\IdData;
-use Workbench\App\Models\Product;
 use Workbench\App\Data\ProductData;
+use Workbench\App\Models\Product;
 use Workbench\App\Models\User;
 
 it('converts to data explicitly', function () {

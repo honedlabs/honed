@@ -7,6 +7,7 @@ namespace Honed\Honed\Concerns;
 use Honed\Honed\Attributes\UseData;
 use ReflectionClass;
 use Spatie\LaravelData\Data;
+use TypeError;
 
 /**
  * @property-read class-string<Data>|null $dataClass The data class to use for the model.
@@ -17,8 +18,8 @@ trait Transferable
      * Get the action group instance for the model.
      *
      * @param  class-string<Data>|null  $data
-     * 
-     * @throws \TypeError If no data class exists.
+     *
+     * @throws TypeError If no data class exists.
      */
     public function toData(?string $data = null): Data
     {

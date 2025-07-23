@@ -15,7 +15,7 @@ it('validates type', function (mixed $value) {
     ->with([
         'bool' => [true],
         'array' => [[1]],
-        'object' => [new stdClass],
+        'object' => [new stdClass()],
     ]);
 
 it('validates format', function (mixed $value) {
