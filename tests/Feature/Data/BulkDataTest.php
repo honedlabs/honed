@@ -3,12 +3,9 @@
 declare(strict_types=1);
 
 use Honed\Honed\Data\BulkData;
-use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-beforeEach(function () {
-
-});
+beforeEach(function () {});
 
 it('validates existence', function (array $input) {
     BulkData::validateAndCreate([]);
@@ -38,7 +35,7 @@ it('validates all type', function (mixed $value) {
         'string' => ['string'],
         'int' => [1],
         'array' => [[1]],
-        'object' => [new stdClass],
+        'object' => [new stdClass()],
     ]);
 
 it('validates arrays', function (mixed $value) {
@@ -51,8 +48,8 @@ it('validates arrays', function (mixed $value) {
     ->with([
         'int' => [5],
         'string' => ['string'],
-        'object' => [new stdClass],
-        'nested object' => [[new stdClass]],
+        'object' => [new stdClass()],
+        'nested object' => [[new stdClass()]],
     ]);
 
 it('validates', function (mixed $value) {

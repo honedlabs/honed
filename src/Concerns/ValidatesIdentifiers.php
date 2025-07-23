@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Honed\Honed\Concerns;
 
 use Closure;
-use Illuminate\Support\Arr;
 
 /**
  * @internal
