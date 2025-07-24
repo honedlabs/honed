@@ -15,7 +15,7 @@ class InlineData extends Data
     /**
      * Get the validation rules for the data.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<int,mixed>|string>
+     * @return array<string, array<int,mixed>>
      */
     public static function rules(): array
     {

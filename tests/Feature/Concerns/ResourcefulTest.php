@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 use Workbench\App\Enums\Status;
 
+beforeEach(function () {});
+
 it('creates label for enum', function () {
     expect(Status::ComingSoon)
-        ->label()->toBe('Coming Soon');
+        ->label()->toBe('Coming soon');
 });
 
 it('creates resource for enum', function () {
-    expect(Status::toResource())
+    expect(Status::resource())
         ->toEqual([
             [
                 'value' => 'available',
@@ -22,7 +24,7 @@ it('creates resource for enum', function () {
             ],
             [
                 'value' => 'coming-soon',
-                'label' => 'Coming Soon',
+                'label' => 'Coming soon',
             ],
         ]);
 });

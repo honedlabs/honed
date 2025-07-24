@@ -30,15 +30,15 @@ class ActionData extends Data
     /**
      * Get the validation rules for the data.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<int,mixed>|string>
+     * @return array<string, array<int,mixed>>
      */
     public static function rules(): array
     {
         return [
             'all' => ['sometimes', 'boolean'],
-            'only' => ['bail', 'exclude_with:all', 'array', 'list', static::each(...)],
-            'except' => ['bail', 'exclude_with:all', 'array', 'list', static::each(...)],
-            'id' => ['bail', 'exclude_without:all', 'required', 'alpha_num'],
+            'only' => ['bail', 'exclude_without:all', 'present', 'array', 'list', static::each(...)],
+            'except' => ['bail', 'exclude_without:all', 'present', 'array', 'list', static::each(...)],
+            'id' => ['bail', 'required_without:all', 'alpha_num'],
         ];
     }
 

@@ -5,10 +5,10 @@ declare(strict_types=1);
 use Honed\Honed\Data\ActionData;
 use Illuminate\Validation\ValidationException;
 
-beforeEach(function () {})->only();
+beforeEach(function () {});
 
 it('validates existence', function (array $input) {
-    ActionData::validateAndCreate([]);
+    ActionData::validateAndCreate($input);
 })->throws(ValidationException::class)
     ->with([
         'empty' => [[]],
@@ -33,7 +33,7 @@ it('validates all type', function (mixed $value) {
 })->throws(ValidationException::class)
     ->with([
         'string' => ['string'],
-        'int' => [1],
+        'int' => [100],
         'array' => [[1]],
         'object' => [new stdClass()],
     ]);
@@ -67,3 +67,23 @@ it('validates', function (mixed $value) {
     'int' => [[1]],
     'string' => [['string']],
 ]);
+
+it('fetches ids from bulk', function () {
+    $data = ActionData::validateAndCreate([
+        'all' => true,
+        'only' => [1],
+        'except' => [],
+    ]);
+
+    expect($data)
+        ->ids()->toBe([1]);
+});
+
+it('fetches id from inline', function () {
+    $data = ActionData::validateAndCreate([
+        'id' => 1,
+    ]);
+
+    expect($data)
+        ->ids()->toBe([1]);
+});

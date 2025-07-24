@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Illuminate\Database\Eloquent\Model;
+
 if (! function_exists('enum_value')) {
     /**
      * Return a scalar value for the given value that might be an enum.
@@ -39,5 +41,21 @@ if (! function_exists('attempt')) {
         }
 
         return [$result, $error];
+    }
+}
+
+if (! function_exists('getKey')) {
+
+    /**
+     * Get the key of a model.
+     */
+    function getKey(int|string|Model|null $model): int|string|null
+    {
+        if ($model instanceof Model) {
+            /** @var int|string|null */
+            return $model->getKey();
+        }
+
+        return $model;
     }
 }
