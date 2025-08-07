@@ -88,7 +88,7 @@ class InertiaResponse implements Responsable
      *
      * @return $this
      */
-    public function title(string $title): static
+    public function title(?string $title): static
     {
         $this->title = $title;
 
@@ -108,7 +108,7 @@ class InertiaResponse implements Responsable
      *
      * @return $this
      */
-    public function head(string $head): static
+    public function head(?string $head): static
     {
         $this->head = $head;
 
