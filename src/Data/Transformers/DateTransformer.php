@@ -10,6 +10,6 @@ class DateTransformer extends DateTimeInterfaceTransformer
 {
     public function __construct(?string $setTimeZone = null)
     {
-        return parent::__construct('Y-m-d', $setTimeZone);
+        parent::__construct('Y-m-d', $setTimeZone);
     }
 }

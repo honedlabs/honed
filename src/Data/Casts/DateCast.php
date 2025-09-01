@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Workbench\App\Data;
+namespace Honed\Honed\Data\Casts;
 
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 
@@ -13,6 +13,6 @@ class DateCast extends DateTimeInterfaceCast
         ?string $setTimeZone = null,
         ?string $timezone = null,
     ) {
-        return parent::__construct('Y-m-d', $type, $setTimeZone, $timezone);
+        parent::__construct('Y-m-d', $type, $setTimeZone, $timezone);
     }
 }
