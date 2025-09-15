@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-use Honed\Upload\Upload;
 use Workbench\App\Http\Responses\CreateProduct;
-use Workbench\App\Models\Product;
 use Workbench\App\Uploads\FileUpload;
 
 beforeEach(function () {
@@ -45,7 +43,7 @@ it('has upload props', function () {
                     'message',
                     'extensions',
                     'mimes',
-                    'size'
+                    'size',
                 ])
             )
         );

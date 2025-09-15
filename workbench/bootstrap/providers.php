@@ -6,6 +6,7 @@ return [
     Workbench\App\Providers\WorkbenchServiceProvider::class,
     Honed\Command\CommandServiceProvider::class,
     Honed\Honed\HonedServiceProvider::class,
+    Honed\Disable\DisableServiceProvider::class,
     Inertia\ServiceProvider::class,
     Spatie\LaravelData\LaravelDataServiceProvider::class,
 ];

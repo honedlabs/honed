@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Workbench\App\Batches\ProductBatch;
+use Workbench\App\Builders\ProductBuilder;
 use Workbench\App\Data\ProductData;
 use Workbench\App\Enums\Status;
 use Workbench\App\Infolists\ProductInfolist;
@@ -63,6 +64,17 @@ class Product extends Model
     ];
 
     /**
+     * Begin querying the model.
+     *
+     * @return ProductBuilder<$this>
+     */
+    public static function query()
+    {
+        /** @var ProductBuilder<$this> */
+        return parent::query();
+    }
+
+    /**
      * Get the user that owns the product.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\User, $this>
@@ -70,6 +82,16 @@ class Product extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @return ProductBuilder<$this>
+     */
+    public function newEloquentBuilder($query)
+    {
+        return new ProductBuilder($query);
     }
 
     /**

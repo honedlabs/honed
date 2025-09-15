@@ -23,6 +23,7 @@
         "honed/action": "^0.29.0",
         "honed/command": "^0.6.0",
         "honed/core": "^0.48.0",
+        "honed/disable": "^0.2.0",
         "honed/flash": "^0.15.0",
         "honed/infolist": "^0.13.0",
         "honed/nav": "^0.20.0",
