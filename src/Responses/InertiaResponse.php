@@ -231,8 +231,8 @@ class InertiaResponse implements Responsable
     protected function render(): Responsable
     {
         return match (true) {
-            (bool) ($page = $this->getPage()) => $this->renderPage($page),
             (bool) ($modal = $this->getModal()) => $this->renderModal($modal),
+            (bool) ($page = $this->getPage()) => $this->renderPage($page),
             default => throw new RuntimeException(
                 'No page or modal was set, the Inertia response cannot be rendered.'
             )
