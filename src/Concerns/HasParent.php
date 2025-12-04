@@ -13,15 +13,15 @@ trait HasParent
 {
     /**
      * The parent model.
-     * 
+     *
      * @var TModel
      */
     protected $parent;
 
     /**
      * Set the parent model.
-     * 
-     * @param TModel $parent
+     *
+     * @param  TModel  $parent
      * @return $this
      */
     public function parent(Model $parent): static
@@ -33,7 +33,7 @@ trait HasParent
 
     /**
      * Get the parent model.
-     * 
+     *
      * @return TModel
      */
     public function getParent(): Model

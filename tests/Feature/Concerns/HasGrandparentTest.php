@@ -7,7 +7,7 @@ use Honed\Honed\Contracts\HasGrandparent as HasGrandparentContract;
 use Workbench\App\Models\User;
 
 beforeEach(function () {
-    $this->class = new class implements HasGrandparentContract
+    $this->class = new class() implements HasGrandparentContract
     {
         use HasGrandparent;
     };
