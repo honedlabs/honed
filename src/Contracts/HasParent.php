@@ -21,7 +21,7 @@ interface HasParent
     /**
      * Set the parent model.
      *
-     * @param TModel $parent
+     * @param  TModel  $parent
      * @return $this
      */
     public function parent(Model $parent): static;

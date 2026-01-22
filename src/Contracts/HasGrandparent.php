@@ -21,7 +21,7 @@ interface HasGrandparent
     /**
      * Set the grandparent model.
      *
-     * @param TModel $grandparent
+     * @param  TModel  $grandparent
      * @return $this
      */
     public function grandparent(Model $grandparent): static;
