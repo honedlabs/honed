@@ -32,6 +32,6 @@ trait Hydratable
 
         $attributes = $this->except(...$except)->toArray();
 
-        return (new $model())->setRawAttributes($attributes);
+        return $model::make($attributes);
     }
 }
