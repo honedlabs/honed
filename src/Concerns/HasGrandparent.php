@@ -13,15 +13,15 @@ trait HasGrandparent
 {
     /**
      * The grandparent model.
-     * 
+     *
      * @var TModel
      */
     protected $grandparent;
 
     /**
      * Set the grandparent model.
-     * 
-     * @param TModel $grandparent
+     *
+     * @param  TModel  $grandparent
      * @return $this
      */
     public function grandparent(Model $grandparent): static
@@ -33,7 +33,7 @@ trait HasGrandparent
 
     /**
      * Get the grandparent model.
-     * 
+     *
      * @return TModel
      */
     public function getGrandparent(): Model
