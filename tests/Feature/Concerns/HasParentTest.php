@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use Honed\Honed\Contracts\HasParent as HasParentContract;
 use Honed\Honed\Concerns\HasParent;
+use Honed\Honed\Contracts\HasParent as HasParentContract;
 use Workbench\App\Models\User;
 
 beforeEach(function () {
-    $this->class = new class implements HasParentContract
+    $this->class = new class() implements HasParentContract
     {
         use HasParent;
     };
