@@ -45,13 +45,13 @@
         "laravel/pint": "^1.18",
         "nunomaduro/collision": "^8.1",
         "orchestra/testbench": "^9.0.0||^10.0.0",
-        "pestphp/pest": "^3.5.1||^4.0",
-        "pestphp/pest-plugin-arch": "^3.0||^4.0",
+        "pestphp/pest": "^3.5.1",
+        "pestphp/pest-plugin-arch": "^3.0.0",
         "phpstan/extension-installer": "^1.4.3",
         "phpstan/phpstan-deprecation-rules": "^2.0.1",
         "phpstan/phpstan-phpunit": "^2.0.3",
-        "inertiajs/inertia-laravel": "^1.2||^2.0||^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0||^4.0"
+        "inertiajs/inertia-laravel": "^1.2||^2.0",
+        "pestphp/pest-plugin-laravel": "^3.0"
     },
     "autoload": {
         "psr-4": {
