@@ -21,7 +21,7 @@
         "php": "^8.2",
         "archtechx/enums": "^1.1",
         "honed/action": "^0.33.0",
-        "honed/chart": "^0.2.0",
+        "honed/chart": "^0.3.0",
         "honed/command": "^0.6.0",
         "honed/core": "^0.53.0",
         "honed/data": "^0.7.1",
