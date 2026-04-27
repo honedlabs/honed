@@ -24,7 +24,7 @@
         "honed/chart": "^0.3.0",
         "honed/command": "^0.6.0",
         "honed/core": "^0.53.0",
-        "honed/data": "^0.7.1",
+        "honed/data": "^0.7.2",
         "honed/disable": "^0.2.0",
         "honed/flash": "^0.17.0",
         "honed/form": "^0.7.0",
